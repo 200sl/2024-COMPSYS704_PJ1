@@ -1,0 +1,90 @@
+FillerController(
+		input signal bottleAtPos2, dosUnitEvac, dosUnitFilled, doProcess;
+		output signal valveInjectorOnOff, valveInletOnOff, dosUnitValveRetract, dosUnitValveExtend;
+		)
+->{
+    signal openInjector, closeInjector;
+    signal openInlet, closeInlet;
+
+    {
+        loop {
+            await (bottleAtPos2 && doProcess);
+
+            emit openInjector;
+
+            pause;
+
+            present (dosUnitEvac) {
+                abort (dosUnitFilled) { sustain dosUnitValveRetract;}
+            }
+
+            emit closeInjector;
+
+            pause;
+
+            emit openInlet;
+
+            pause;
+
+            abort (dosUnitEvac) { sustain dosUnitValveExtend; }
+
+            emit closeInlet;
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            await (openInjector);
+
+            abort (closeInjector) { sustain valveInjectorOnOff; }
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            await (openInlet);
+
+            abort (closeInlet) { sustain valveInletOnOff; }
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            {
+                present (valveInjectorOnOff) {
+                    System.out.println("Injector On");
+                } else {
+                    System.out.println("Injector Off");
+                }
+            }
+            ||
+            {
+                present (valveInletOnOff) {
+                    System.out.println("Inlet On");
+                } else {
+                    System.out.println("Inlet Off");
+                }
+            }
+            ||
+            {
+                present (dosUnitValveRetract) {
+                    System.out.println("Raise Canister");
+                }
+            }
+            ||
+            {
+                present (dosUnitValveExtend) {
+                    System.out.println("Lower Canister");
+                }
+            }
+
+            pause;
+        }
+    }
+}

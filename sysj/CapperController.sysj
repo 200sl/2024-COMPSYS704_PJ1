@@ -1,0 +1,109 @@
+CapperController(
+		input signal bottleAtPos4, gripperZAxisLowered, gripperZAxisLifted, gripperTurnHomePos, gripperTurnFinalPos, doProcess;
+		output signal cylPos5ZaxisExtend, gripperTurnRetract, gripperTurnExtend, capGripperPos5Extend, cylClampBottleExtend;
+		)
+->{
+    signal clampBottle, unclampBottle;
+    signal raiseGripper, lowerGripper;
+    signal gripCap, releaseCap;
+
+    {
+        loop {
+            await (bottleAtPos4 && doProcess);
+
+            emit clampBottle;
+            emit lowerGripper;
+
+            await (gripperZAxisLowered);
+
+            emit gripCap;
+
+            abort (gripperTurnFinalPos) { sustain gripperTurnExtend; }
+
+            emit releaseCap;
+
+            abort (gripperTurnHomePos) { sustain gripperTurnRetract; }
+
+            emit raiseGripper;
+
+            await (gripperZAxisLifted);
+
+            emit unclampBottle;
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            await (clampBottle);
+
+            abort (unclampBottle) { sustain cylClampBottleExtend; }
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            await (lowerGripper);
+
+            abort (raiseGripper) { sustain cylPos5ZaxisExtend; }
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            await (gripCap);
+
+            abort (releaseCap) { sustain capGripperPos5Extend; }
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            {
+                present (cylPos5ZaxisExtend) {
+                    System.out.printf("Gripper Lower ");
+                } else {
+                    System.out.printf("Gripper Lift ");
+                }
+            }
+            ||
+            {
+                present (gripperTurnRetract) {
+                    System.out.printf("Gripper Untwisting ");
+                }
+            }
+            ||
+            {
+                present (gripperTurnExtend) {
+                    System.out.printf("Gripper twisting ");
+                }
+            }
+            ||
+            {
+                present (capGripperPos5Extend) {
+                    System.out.print("Grip the Cap ");
+                } else {
+                    System.out.print("Release the Cap ");
+                }
+            }
+            ||
+            {
+                present (cylClampBottleExtend) {
+                    System.out.print("Bottle Clamped ");
+                } else {
+                    System.out.print("Bottle Unclamped ");
+                }
+            }
+
+            System.out.println("");
+            pause;
+        }
+    }
+}

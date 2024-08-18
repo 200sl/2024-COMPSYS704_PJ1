@@ -1,0 +1,45 @@
+RotaryTableController(
+		input signal tableAlignedWithSensor, bottleAtPos5, capOnBottleAtPos1, move2NextPos;
+		output signal rotaryTableTrigger;
+		)
+->{
+    signal turnOnRotary, turnOffRotary;
+
+    loop {
+        await (move2NextPos && !bottleAtPos5 && !capOnBottleAtPos1);
+
+        emit turnOnRotary;
+
+        waitl(500ms);
+
+        abort (!rotaryTableTrigger) {
+            loop {
+                present (tableAlignedWithSensor) { sustain turnOffRotary; }
+
+                pause;
+            }
+        }
+    }
+    ||
+    {
+        loop {
+            await (turnOnRotary);
+
+            abort (turnOffRotary) { sustain rotaryTableTrigger; }
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            present (rotaryTableTrigger) {
+                System.out.println("rotaryOn");
+            } else {
+                System.out.println("rotaryOff");
+            }
+
+            pause;
+        }
+    }
+}

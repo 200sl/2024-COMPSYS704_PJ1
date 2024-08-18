@@ -1,0 +1,12 @@
+<System xmlns="http://systemjtechnology.com">
+    <SubSystem Name="RT" Local="true">
+        <ClockDomain Name="RotaryTableControllerCD" Class="RotaryTableController">
+<!--            <iSignal Name="tableAlignedWithSensor"  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40002" />-->
+<!--            <iSignal Name="bottleAtPos5"            Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40003" />-->
+<!--            <iSignal Name="capOnBottleAtPos1"       Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40004" />-->
+<!--            <iSignal Name="move2NextPos"            Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40005" />-->
+
+            <oSignal Name="rotaryTableTrigger" To="RotaryTableModel.rotaryTableTrigger" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41001" />
+        </ClockDomain>
+    </SubSystem>
+</System>
