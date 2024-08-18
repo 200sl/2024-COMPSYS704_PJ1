@@ -16,6 +16,7 @@ CapperController(
 
             await (gripperZAxisLowered);
 
+            //gripperClose?
             emit gripCap;
 
             abort (gripperTurnFinalPos) { sustain gripperTurnExtend; }

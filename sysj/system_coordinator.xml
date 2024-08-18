@@ -1,0 +1,11 @@
+<System xmlns="http://systemjtechnology.com">
+    <SubSystem Name="CC" Local="true">
+        <ClockDomain Name="Coordinator" Class="Coordinator">
+            #todo
+            <iSignal Name="bottleAtPos1" IP="127.0.0.1" Port="42000" />
+            <iSignal Name="bottleAtPos2" IP="127.0.0.1" Port="42001" />
+            <iSignal Name="bottleAtPos4" IP="127.0.0.1" Port="42002" />
+            <iSignal Name="bottleAtPos5" IP="127.0.0.1" Port="42003" />
+        </ClockDomain>
+    </SubSystem>
+</System>

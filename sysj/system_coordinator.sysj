@@ -1,0 +1,186 @@
+Coordinator(
+        //signals from sensors
+		input signal bottleAtPos1, bottleAtPos2, bottleAtPos4, bottleAtPos5;
+        input signal bottleLeftPos5, bottleFull;
+        input signal tableAlignedWithSensor;
+        input signal gripperZAxisLowered, gripperZAxisLifted, gripperTurnHomePos, gripperTurnFinalPos;
+
+
+        //pos1
+        input signal capOnBottleAtPos1;
+
+        //pos2
+        input signal pressureCanisterHigh, pressureCanisterLow;
+        output signal dosUnitEvac, dosUnitFilled, dosUnitAtTargetPos;
+
+        //pos 4
+        input signal gripperAtTop, gripperAtBtm, gripperClose;
+        input signal gripperAt0, gripperAt270;
+        input signal bottleClampOpen, bottleClampClose;
+
+        //signals from controllers
+		input Integer signal motConveyeorOnOff;
+		input signal rotaryTableTrigger;
+        input signal cylPos5ZaxisExtend, gripperTurnRetract, gripperTurnExtend, capGripperPos5Extend, cylClampBottleExtend;
+		input Integer signal valveInjectorOnOff, valveInletOnOff;
+        input signal dosUnitValueRetract, dosUnitValueExtend;
+
+        //to controller
+        output signal move2NextPos;
+        output signal doProcess;
+
+        //from GUI
+        input boolean signal processEbalbeGUI, updateFilterGUI;
+
+        input String channel GUI;
+        input String channel liquidConfigure;
+		)
+->{
+
+    signal posReady_1, posReady_2, posReady_4, posReady_5;
+    signal processEnable, processDisable;
+
+    {
+        loop
+        {
+            //start operation
+
+            //send bottle to pos1
+
+            //fill the bottles
+
+            //place a lid/cap
+
+            //screw and press caps
+
+            //send bottle via converor to next stage
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop
+        {
+            //pos 1
+            abort (bottleAtPos1)
+            {
+                sustain posReady_1;
+            }
+
+            pause;
+        }
+    }
+    ||
+    {
+        //filler
+        loop
+        {
+            //pos 2
+            abort (bottleAtPos2)
+            {
+                sustain posReady_2;
+
+                present (pressureCanisterLow)
+                {
+                    emit dosUnitEvac;
+                }
+
+                present (pressureCanisterHigh)
+                {
+                    emit dosUnitFilled;
+                }
+            }
+
+           pause;
+        }
+    }
+    ||
+    {
+        //capper
+        loop
+        {
+            //pos 4
+            abort (bottleAtPos4)
+            {
+                sustain posReady_4;
+
+                //TODO ?
+                present (gripperAtTop)
+                {
+                    emit gripperTurnHomePos;
+                }
+
+                present (gripperAtBtm)
+                {
+                    emit gripperTurnFinalPos;
+                }
+            }
+
+            pause;
+        }
+    }
+    ||
+    {
+        //conveyor
+        loop
+        {
+            //pos 5
+            abort (bottleAtPos5)
+            {
+                sustain posReady_5;
+            }
+
+            pause;
+        }
+    }
+    ||
+    {
+        //GUI
+        loop
+        {
+            if (#updateFilterGUI.equals(Boolean, true))
+            {
+                //TODO
+                //parse #liquidConfigure TLV
+            }
+
+            if (#processEbalbeGUI.equals(Boolean, true))
+            {
+                sustain processEnable;
+            }
+            else
+            {
+                sustain processDisable;
+            }
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop
+        {
+            //ready
+            await (processEnable);
+            await (posReady_1 && posReady_2 && posReady_4 && posReady_5);
+            await (!rotaryTableTrigger && cylClampBottleExtend &&
+                motConveyeorOnOff && dosUnitValueRetract);
+            emit doProcess;
+            System.out.println("[Coordinator] start doing process");
+
+            //TODO
+            //Add a queue to mark bottles
+            //bottle_queue.push();
+
+            //finish
+            await (rotaryTableTrigger && !cylClampBottleExtend &&
+                !motConveyeorOnOff && dosUnitValueExtend);
+            emit move2NextPos;
+            //bottle_queue.pop();
+            System.out.println("[Coordinator] process finished, move to next position");
+
+            pause;
+        }
+    }   
+}
