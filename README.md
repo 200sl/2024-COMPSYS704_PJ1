@@ -36,3 +36,79 @@ TBW.
 ### 4.3 Additional
 
 When using IDEA, if the building process of SystemJ is successful, but cannot run the java code because of lang issues, please delete the error java files and fix the problem in systemJ files, then rebuild it and retry.
+
+## 5.Port Assignment
+|  Controller  | SignalType |       SignalName       | Port  |
+|:------------:|:----------:|:----------------------:|:-----:|
+|   Conveyor   |   Input    |      bottleAtPos1      | 40000 |
+|   Conveyor   |   Input    |     bottleLeftPos5     | 40001 |
+|   Conveyor   |   Output   |    motConveyorOnOff    | 41000 |
+|              |            |                        |       | 
+| Rotary Table |   Input    | tableAlignedWithSensor | 40002 |
+| Rotary Table |   Input    |      bottleAtPos5      | 40003 |
+| Rotary Table |   Input    |   capOnBottleAtPos1    | 40004 |
+| Rotary Table |   Input    |      move2NextPos      | 42000 |
+| Rotary Table |   Output   |   rotaryTableTrigger   | 41001 |
+| Rotary Table |   Output   |       rotaryIdle       | 43000 |
+|              |            |                        |       | 
+|   Filler A   |   Input    |     bottleAtPos2A      | 40005 |
+|   Filler A   |   Input    |      dosUnitAEvac      | 40006 |
+|   Filler A   |   Input    |    dosUnitAAtTarget    | 40007 |
+|   Filler A   |   Input    |   bottleAtPos2AFull    | 40008 |
+|   Filler A   |   Input    |    fillerADoProcess    | 42001 |
+|   Filler A   |   Output   |  valveInjectorAOnOff   | 41002 |
+|   Filler A   |   Output   |    valveInletAOnOff    | 41003 |
+|   Filler A   |   Output   |  dosUnitAValveRetract  | 41004 |
+|   Filler A   |   Output   |  dosUnitAValveExtend   | 41005 |
+|   Filler A   |   Output   |      fillerAIdle       | 43001 |
+|              |            |                        |       | 
+|   Filler B   |   Input    |     bottleAtPos2B      | 40009 |
+|   Filler B   |   Input    |      dosUnitBEvac      | 40010 |
+|   Filler B   |   Input    |    dosUnitBAtTarget    | 40011 |
+|   Filler B   |   Input    |   bottleAtPos2BFull    | 40012 |
+|   Filler B   |   Input    |    fillerADoProcess    | 42002 |
+|   Filler B   |   Output   |  valveInjectorBOnOff   | 41006 |
+|   Filler B   |   Output   |    valveInletBOnOff    | 41007 |
+|   Filler B   |   Output   |  dosUnitBValveRetract  | 41008 |
+|   Filler B   |   Output   |  dosUnitBValveExtend   | 41009 |
+|   Filler B   |   Output   |      fillerBIdle       | 43002 |
+|              |            |                        |       | 
+|   Filler C   |   Input    |     bottleAtPos2C      | 40013 |
+|   Filler C   |   Input    |      dosUnitCEvac      | 40014 |
+|   Filler C   |   Input    |    dosUnitCAtTarget    | 40015 |
+|   Filler C   |   Input    |   bottleAtPos2CFull    | 40016 |
+|   Filler C   |   Input    |    fillerCDoProcess    | 42003 |
+|   Filler C   |   Output   |  valveInjectorCOnOff   | 41010 |
+|   Filler C   |   Output   |    valveInletCOnOff    | 41011 |
+|   Filler C   |   Output   |  dosUnitCValveRetract  | 41012 |
+|   Filler C   |   Output   |  dosUnitCValveExtend   | 41013 |
+|   Filler C   |   Output   |      fillerCIdle       | 43003 |
+|              |            |                        |       | 
+|   Filler D   |   Input    |     bottleAtPos2D      | 40017 |
+|   Filler D   |   Input    |      dosUnitDEvac      | 40018 |
+|   Filler D   |   Input    |    dosUnitDAtTarget    | 40019 |
+|   Filler D   |   Input    |   bottleAtPos2DFull    | 40020 |
+|   Filler D   |   Input    |    fillerDDoProcess    | 42004 |
+|   Filler D   |   Output   |  valveInjectorDOnOff   | 41014 |
+|   Filler D   |   Output   |    valveInletDOnOff    | 41015 |
+|   Filler D   |   Output   |  dosUnitDValveRetract  | 41016 |
+|   Filler D   |   Output   |  dosUnitDValveExtend   | 41017 |
+|   Filler D   |   Output   |      fillerDIdle       | 43004 |
+|              |            |                        |       | 
+|    Capper    |   Input    |      bottleAtPos4      | 40021 | 
+|    Capper    |   Input    |  gripperZAxisLowered   | 40022 | 
+|    Capper    |   Input    |   gripperZAxisLifted   | 40023 | 
+|    Capper    |   Input    |   gripperTurnHomePos   | 40024 | 
+|    Capper    |   Input    |  gripperTurnFinalPos   | 40025 | 
+|    Capper    |   Input    |    capperDoProcess     | 42005 | 
+|    Capper    |   Output   |   cylPos5ZaxisExtend   | 41018 | 
+|    Capper    |   Output   |   gripperTurnRetract   | 41019 | 
+|    Capper    |   Output   |   gripperTurnExtend    | 41020 | 
+|    Capper    |   Output   |  capGripperPos5Extend  | 41021 | 
+|    Capper    |   Output   |  cylClampBottleExtend  | 41022 | 
+|    Capper    |   Output   |       capperIdle       | 43005 | 
+
+> Port Number 40000-40999: Sensor signal for controllers.  
+> Port Number 41000-41999: Control signal emitted by controllers to manipulate sub models.  
+> Port Number 42000-42999: System-Coordinator signal, send to controller so that the controller will start its process.  
+> Port Number 43000-43999: Controller's working status signal, indicate if the controller is working or idle.

@@ -1,0 +1,22 @@
+<System xmlns="http://systemjtechnology.com">
+    <SubSystem Name="FILLD" Local="true">
+        <ClockDomain Name="FillerDControllerCD" Class="FillerDController">
+<!--            <iSignal Name="bottleAtPos2D"               Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40009" />-->
+<!--            <iSignal Name="dosUnitDEvac"                 Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40010" />-->
+<!--            <iSignal Name="dosUnitDAtTarget"             Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40011" />-->
+<!--            <iSignal Name="bottleAtPos2DFull"                  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40012" />-->
+
+
+            <oSignal Name="valveInjectorDOnOff"      To="FillerModel.valveInjectorDOnOff"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41006" />
+            <oSignal Name="valveInletDOnOff"         To="FillerModel.valveInletDOnOff"      Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41007" />
+            <oSignal Name="dosUnitDValveRetract"     To="FillerModel.dosUnitDValveRetract"  Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41008" />
+            <oSignal Name="dosUnitDValveExtend"      To="FillerModel.dosUnitDValveExtend"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41009" />
+
+
+            <!--            signal for system coordinator  -->
+<!--            <iSignal Name="fillerDDoProcess"        Class="com.systemj.ipc.SimpleServer"    IP="127.0.0.1" Port="42001"/>-->
+
+            <oSignal Name="fillerDIdle"             To="Coordinator.fillerDIdle"          Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43001" />
+        </ClockDomain>
+    </SubSystem>
+</System>

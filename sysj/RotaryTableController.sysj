@@ -1,12 +1,12 @@
 RotaryTableController(
 		input signal tableAlignedWithSensor, bottleAtPos5, capOnBottleAtPos1, move2NextPos;
-		output signal rotaryTableTrigger;
+		output signal rotaryTableTrigger, rotaryIdle;
 		)
 ->{
     signal turnOnRotary, turnOffRotary;
 
     loop {
-        await (move2NextPos && !bottleAtPos5 && !capOnBottleAtPos1);
+        abort (move2NextPos && !bottleAtPos5 && !capOnBottleAtPos1) { sustain rotaryIdle; }
 
         emit turnOnRotary;
 

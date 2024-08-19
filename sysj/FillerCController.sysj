@@ -1,0 +1,99 @@
+FillerCController(
+		input signal bottleAtPos2C, bottleAtPos2CFull, dosUnitCEvac, dosUnitCAtTarget, fillerCDoProcess;
+		output signal valveInjectorCOnOff, valveInletCOnOff, dosUnitCValveRetract, dosUnitCValveExtend, fillerCIdle;
+		)
+->{
+    signal openInjector, closeInjector;
+    signal openInlet, closeInlet;
+
+    {
+        loop {
+            abort (bottleAtPos2C && fillerCDoProcess) { sustain fillerCIdle; }
+
+            emit openInjector;
+
+            pause;
+
+            present (dosUnitCEvac) {
+                abort (dosUnitCAtTarget) { sustain dosUnitCValveRetract;}
+            }
+
+            emit closeInjector;
+
+            pause;
+
+            emit openInlet;
+
+            pause;
+
+            abort (dosUnitCEvac || bottleAtPos2CFull) { sustain dosUnitCValveExtend; }
+
+            // if the bottle is full, close inlet, open injector, let the liquid back to the bank.
+            present (bottleAtPos2CFull) {
+                emit closeInlet;
+                emit openInjector;
+                pause;
+
+                abort (dosUnitCEvac) { sustain dosUnitCValveExtend; }
+            }
+
+            emit closeInlet;
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            await (openInjector);
+
+            abort (closeInjector) { sustain valveInjectorCOnOff; }
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            await (openInlet);
+
+            abort (closeInlet) { sustain valveInletCOnOff; }
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            {
+                present (valveInjectorCOnOff) {
+                    System.out.println("InjectorC On");
+                } else {
+                    System.out.println("InjectorC Off");
+                }
+            }
+            ||
+            {
+                present (valveInletCOnOff) {
+                    System.out.println("InletC On");
+                } else {
+                    System.out.println("InletC Off");
+                }
+            }
+            ||
+            {
+                present (dosUnitCValveRetract) {
+                    System.out.println("Raise Unit-C Canister");
+                }
+            }
+            ||
+            {
+                present (dosUnitCValveExtend) {
+                    System.out.println("Lower Unit-C Canister");
+                }
+            }
+
+            pause;
+        }
+    }
+}
