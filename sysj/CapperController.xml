@@ -12,6 +12,13 @@
             <oSignal Name="gripperTurnExtend"       To="CapperModel.gripperTurnExtend"      Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41004" />
             <oSignal Name="capGripperPos5Extend"    To="CapperModel.capGripperPos5Extend"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41005" />
             <oSignal Name="cylClampBottleExtend"    To="CapperModel.cylClampBottleExtend"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41006" />
+
+            <!-- signal for system coordinator  -->
+
+<!--            <iSignal Name="capperDoProcess" Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40000" />-->
+
+            <oSignal Name="capperIdle" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40000"/>
+
         </ClockDomain>
     </SubSystem>
 </System>

@@ -1,0 +1,99 @@
+FillerDController(
+		input signal bottleAtPos2D, bottleAtPos2DFull, dosUnitDEvac, dosUnitDAtTarget, fillerDDoProcess;
+		output signal valveInjectorDOnOff, valveInletDOnOff, dosUnitDValveRetract, dosUnitDValveExtend, fillerDIdle;
+		)
+->{
+    signal openInjector, closeInjector;
+    signal openInlet, closeInlet;
+
+    {
+        loop {
+            abort (bottleAtPos2D && fillerDDoProcess) { sustain fillerDIdle; }
+
+            emit openInjector;
+
+            pause;
+
+            present (dosUnitDEvac) {
+                abort (dosUnitDAtTarget) { sustain dosUnitDValveRetract;}
+            }
+
+            emit closeInjector;
+
+            pause;
+
+            emit openInlet;
+
+            pause;
+
+            abort (dosUnitDEvac || bottleAtPos2DFull) { sustain dosUnitDValveExtend; }
+
+            // if the bottle is full, close inlet, open injector, let the liquid back to the bank.
+            present (bottleAtPos2DFull) {
+                emit closeInlet;
+                emit openInjector;
+                pause;
+
+                abort (dosUnitDEvac) { sustain dosUnitDValveExtend; }
+            }
+
+            emit closeInlet;
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            await (openInjector);
+
+            abort (closeInjector) { sustain valveInjectorDOnOff; }
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            await (openInlet);
+
+            abort (closeInlet) { sustain valveInletDOnOff; }
+
+            pause;
+        }
+    }
+    ||
+    {
+        loop {
+            {
+                present (valveInjectorDOnOff) {
+                    System.out.println("InjectorD On");
+                } else {
+                    System.out.println("InjectorD Off");
+                }
+            }
+            ||
+            {
+                present (valveInletDOnOff) {
+                    System.out.println("InletD On");
+                } else {
+                    System.out.println("InletD Off");
+                }
+            }
+            ||
+            {
+                present (dosUnitDValveRetract) {
+                    System.out.println("Raise Unit-D Canister");
+                }
+            }
+            ||
+            {
+                present (dosUnitDValveExtend) {
+                    System.out.println("Lower Unit-D Canister");
+                }
+            }
+
+            pause;
+        }
+    }
+}
