@@ -17,7 +17,7 @@
 
 <!--            <iSignal Name="capperDoProcess" Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40000" />-->
 
-            <oSignal Name="capperIdle" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40000"/>
+            <oSignal Name="capperIdle" To="Coordinator.capperIdle" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40000"/>
 
         </ClockDomain>
     </SubSystem>

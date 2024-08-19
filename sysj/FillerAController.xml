@@ -16,7 +16,7 @@
             <!--            signal for system coordinator  -->
 <!--            <iSignal Name="fillerADoProcess"        Class="com.systemj.ipc.SimpleServer"    IP="127.0.0.1" Port="42001"/>-->
 
-            <oSignal Name="FillerAIdle"             To="Coordinator.FillerAIdle"          Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43001" />
+            <oSignal Name="fillerAIdle"             To="Coordinator.fillerAIdle"          Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43001" />
         </ClockDomain>
     </SubSystem>
 </System>
