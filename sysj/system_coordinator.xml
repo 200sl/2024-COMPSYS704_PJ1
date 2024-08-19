@@ -1,11 +1,33 @@
 <System xmlns="http://systemjtechnology.com">
     <SubSystem Name="CC" Local="true">
         <ClockDomain Name="Coordinator" Class="Coordinator">
-            #todo
-            <iSignal Name="bottleAtPos1" IP="127.0.0.1" Port="42000" />
-            <iSignal Name="bottleAtPos2" IP="127.0.0.1" Port="42001" />
-            <iSignal Name="bottleAtPos4" IP="127.0.0.1" Port="42002" />
-            <iSignal Name="bottleAtPos5" IP="127.0.0.1" Port="42003" />
+             <iSignal Name="bottleAtPos4"           Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40021" />
+             <iSignal Name="gripperZAxisLowered"    Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40022" />
+             <iSignal Name="gripperZAxisLifted"     Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40023" />
+             <iSignal Name="gripperTurnHomePos"     Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40024" />
+             <iSignal Name="gripperTurnFinalPos"    Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40010" />
+             <iSignal Name="bottleAtPos2A"          Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40005" />
+             <iSignal Name="bottleAtPos2B"          Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40009" />
+             <iSignal Name="bottleAtPos2C"          Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40013" />
+             <iSignal Name="bottleAtPos2D"          Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40017" />
+             <iSignal Name="bottleAtPos5"           Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40003" />
+             <iSignal Name="capOnBottleAtPos1"      Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="40004" />
+
+            <iSignal Name="rotaryIdle"         To="Coordinator.rotaryIdle"              Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43000" />
+            <iSignal Name="capperIdle"         To="CapperController.capperIdle"              Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43005" />
+            <iSignal Name="fillerAIdle"         To="FillerAController.fillerAIdle"              Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43001" />
+            <iSignal Name="fillerBIdle"         To="FillerBController.fillerBIdle"              Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43002" />
+            <iSignal Name="fillerCIdle"         To="FillerCController.fillerCIdle"              Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43003" />
+            <iSignal Name="fillerDIdle"         To="FillerDController.fillerDIdle"              Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43004" />
+
+
+            <oSignal Name="capperDoProcess"    To="CapperController.capperDoProcess"                Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="42005" />
+            <oSignal Name="fillerADoProcess"   To="FillerAController.fillerADoProcess"              Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="42001" />
+            <oSignal Name="fillerBDoProcess"   To="FillerBController.fillerBDoProcess"              Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="42002" />
+            <oSignal Name="fillerCDoProcess"   To="FillerCController.fillerCDoProcess"              Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="42003" />
+            <oSignal Name="fillerDDoProcess"   To="FillerDController.fillerDDoProcess"              Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="42004" />
+
+            <oSignal Name="move2NextPos"         To="RotaryTableController.rotaryIdle"              Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="42000" />
         </ClockDomain>
     </SubSystem>
 </System>

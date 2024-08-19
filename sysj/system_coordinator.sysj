@@ -1,19 +1,18 @@
-import run.BottleQueue;
+//import run.BottleQueue;
 
 Coordinator(
         //signals from sensors
-		input signal bottleAtPos1, bottleAtPos2, bottleAtPos3, bottleAtPos4, bottleAtPos5;
-        input signal bottleLeftPos5, bottleFull;
-        input signal tableAlignedWithSensor;
-        input signal gripperZAxisLowered, gripperZAxisLifted, gripperTurnHomePos, gripperTurnFinalPos;
+		input signal bottleAtPos1, bottleAtPos3, bottleAtPos4, bottleAtPos5;
+        input signal bottleAtPos2A, bottleAtPos2B, bottleAtPos2C, bottleAtPos2D;
 
+        input signal bottleLeftPos5, bottleFull;
+        input signal gripperZAxisLowered, gripperZAxisLifted, gripperTurnHomePos, gripperTurnFinalPos;
 
         //pos1
         input signal capOnBottleAtPos1;
 
         //pos2
         input signal pressureCanisterHigh, pressureCanisterLow;
-        output signal dosUnitEvac, dosUnitFilled, dosUnitAtTargetPos;
 
         //pos3
         input signal WPgripped, armAtSourceE;
@@ -34,6 +33,11 @@ Coordinator(
 		input Integer signal valveInjectorOnOff, valveInletOnOff;
         input signal dosUnitValueRetract, dosUnitValueExtend;
 
+        input signal rotaryIdle, capperIdle, fillerAIdle, fillerBIdle, fillerCIdle, fillerDIdle;
+        output signal capperDoProcess;
+        output signal fillerADoProcess, fillerBDoProcess, fillerCDoProcess, fillerDDoProcess;
+
+
         //to controller
         output signal move2NextPos;
         output signal doProcess;
@@ -46,29 +50,9 @@ Coordinator(
 		)
 ->{
 
-    signal posReady_1, posReady_2, posReady_4, posReady_5;
     signal processEnable, processDisable;
-    BottleQueue bottleQueue = new BottleQueue();
+    //BottleQueue bottleQueue = new BottleQueue();
 
-    {
-        loop
-        {
-            //start operation
-
-            //send bottle to pos1
-
-            //fill the bottles
-
-            //place a lid/cap
-
-            //screw and press caps
-
-            //send bottle via converor to next stage
-
-            pause;
-        }
-    }
-    ||
     {
         loop
         {
@@ -76,7 +60,41 @@ Coordinator(
             await (bottleAtPos1);
             emit move2NextPos;
 
-            BottleQueue.moveToNext();
+            //BottleQueue.moveToNext();
+            pause;
+        }
+    }
+    ||
+    {
+        //filler A
+        loop
+        {
+            //pos 2
+            await (bottleAtPos2A);
+            emit fillerADoProcess;
+
+            await (fillerAIdle);
+            emit move2NextPos;
+
+            //BottleQueue.moveToNext();
+
+            pause;
+        }
+    }
+    ||
+    {
+        //filler B
+        loop
+        {
+            //pos 2
+            await (bottleAtPos2B);
+            emit fillerCDoProcess;
+
+            await (fillerBIdle);
+            emit move2NextPos;
+
+            //BottleQueue.moveToNext();
+
             pause;
         }
     }
@@ -86,13 +104,30 @@ Coordinator(
         loop
         {
             //pos 2
-            await (bottleAtPos2);
-            emit doProcess;
+            await (bottleAtPos2C);
+            emit fillerCDoProcess;
 
-            await (valveInjectorOnOff);
+            await (fillerCIdle);
             emit move2NextPos;
 
-            BottleQueue.moveToNext();
+            //BottleQueue.moveToNext();
+
+            pause;
+        }
+    }
+    ||
+    {
+        //filler
+        loop
+        {
+            //pos 2
+            await (bottleAtPos2D);
+            emit fillerDDoProcess;
+
+            await (fillerDIdle);
+            emit move2NextPos;
+
+            //BottleQueue.moveToNext();
 
             pause;
         }
@@ -107,9 +142,10 @@ Coordinator(
 
             await (WPgripped);
             await (armAtSourceE);
+
             emit move2NextPos;
 
-            BottleQueue.moveToNext();
+            //BottleQueue.moveToNext();
 
             pause;
         }
@@ -120,14 +156,12 @@ Coordinator(
         loop
         {
             await (bottleAtPos4);
-            emit doProcess;
+            emit capperDoProcess;
 
-            await (gripperTurnRetract);
-            await (capGripperPos5Extend);
-
+            await (capperIdle);
             emit move2NextPos;
 
-            BottleQueue.moveToNext();
+            //BottleQueue.moveToNext();
 
             pause;
         }
@@ -139,11 +173,11 @@ Coordinator(
         {
             await (bottleAtPos5);
             await (bottleLeftPos5);
+            await (rotaryIdle);
 
-            emit bottleUnload;
             emit move2NextPos;
 
-            BottleQueue.moveToNext();
+            //BottleQueue.moveToNext();
 
             pause;
         }
@@ -153,20 +187,21 @@ Coordinator(
         //GUI
         loop
         {
-            if (#updateFilterGUI.equals(Boolean, true))
-            {
-                //TODO
-                //parse #liquidConfigure TLV
-            }
+            //TODO
 
-            if (#processEbalbeGUI.equals(Boolean, true))
-            {
-                sustain processEnable;
-            }
-            else
-            {
-                sustain processDisable;
-            }
+            //if (#updateFilterGUI.equals(boolean, true))
+            //{
+            //    parse #liquidConfigure TLV
+            //}
+
+            //if (#processEbalbeGUI.equals(boolean, true))
+            //{
+            //    sustain processEnable;
+            //}
+            //else
+            //{
+            //    sustain processDisable;
+            //}
 
             pause;
         }
