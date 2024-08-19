@@ -1,6 +1,8 @@
+import run.BottleQueue;
+
 Coordinator(
         //signals from sensors
-		input signal bottleAtPos1, bottleAtPos2, bottleAtPos4, bottleAtPos5;
+		input signal bottleAtPos1, bottleAtPos2, bottleAtPos3, bottleAtPos4, bottleAtPos5;
         input signal bottleLeftPos5, bottleFull;
         input signal tableAlignedWithSensor;
         input signal gripperZAxisLowered, gripperZAxisLifted, gripperTurnHomePos, gripperTurnFinalPos;
@@ -13,10 +15,17 @@ Coordinator(
         input signal pressureCanisterHigh, pressureCanisterLow;
         output signal dosUnitEvac, dosUnitFilled, dosUnitAtTargetPos;
 
+        //pos3
+        input signal WPgripped, armAtSourceE;
+        output signal lipLoaderEnable;
+
         //pos 4
         input signal gripperAtTop, gripperAtBtm, gripperClose;
         input signal gripperAt0, gripperAt270;
         input signal bottleClampOpen, bottleClampClose;
+
+        //pos 5
+        output signal bottleUnload;
 
         //signals from controllers
 		input Integer signal motConveyeorOnOff;
@@ -39,6 +48,7 @@ Coordinator(
 
     signal posReady_1, posReady_2, posReady_4, posReady_5;
     signal processEnable, processDisable;
+    BottleQueue bottleQueue = new BottleQueue();
 
     {
         loop
@@ -63,11 +73,10 @@ Coordinator(
         loop
         {
             //pos 1
-            abort (bottleAtPos1)
-            {
-                sustain posReady_1;
-            }
+            await (bottleAtPos1);
+            emit move2NextPos;
 
+            BottleQueue.moveToNext();
             pause;
         }
     }
@@ -77,22 +86,32 @@ Coordinator(
         loop
         {
             //pos 2
-            abort (bottleAtPos2)
-            {
-                sustain posReady_2;
+            await (bottleAtPos2);
+            emit doProcess;
 
-                present (pressureCanisterLow)
-                {
-                    emit dosUnitEvac;
-                }
+            await (valveInjectorOnOff);
+            emit move2NextPos;
 
-                present (pressureCanisterHigh)
-                {
-                    emit dosUnitFilled;
-                }
-            }
+            BottleQueue.moveToNext();
 
-           pause;
+            pause;
+        }
+    }
+    ||
+    {
+        //lip loader
+        loop
+        {
+            await (bottleAtPos3);
+            emit lipLoaderEnable;
+
+            await (WPgripped);
+            await (armAtSourceE);
+            emit move2NextPos;
+
+            BottleQueue.moveToNext();
+
+            pause;
         }
     }
     ||
@@ -100,22 +119,15 @@ Coordinator(
         //capper
         loop
         {
-            //pos 4
-            abort (bottleAtPos4)
-            {
-                sustain posReady_4;
+            await (bottleAtPos4);
+            emit doProcess;
 
-                //TODO ?
-                present (gripperAtTop)
-                {
-                    emit gripperTurnHomePos;
-                }
+            await (gripperTurnRetract);
+            await (capGripperPos5Extend);
 
-                present (gripperAtBtm)
-                {
-                    emit gripperTurnFinalPos;
-                }
-            }
+            emit move2NextPos;
+
+            BottleQueue.moveToNext();
 
             pause;
         }
@@ -125,11 +137,13 @@ Coordinator(
         //conveyor
         loop
         {
-            //pos 5
-            abort (bottleAtPos5)
-            {
-                sustain posReady_5;
-            }
+            await (bottleAtPos5);
+            await (bottleLeftPos5);
+
+            emit bottleUnload;
+            emit move2NextPos;
+
+            BottleQueue.moveToNext();
 
             pause;
         }
@@ -157,30 +171,4 @@ Coordinator(
             pause;
         }
     }
-    ||
-    {
-        loop
-        {
-            //ready
-            await (processEnable);
-            await (posReady_1 && posReady_2 && posReady_4 && posReady_5);
-            await (!rotaryTableTrigger && cylClampBottleExtend &&
-                motConveyeorOnOff && dosUnitValueRetract);
-            emit doProcess;
-            System.out.println("[Coordinator] start doing process");
-
-            //TODO
-            //Add a queue to mark bottles
-            //bottle_queue.push();
-
-            //finish
-            await (rotaryTableTrigger && !cylClampBottleExtend &&
-                !motConveyeorOnOff && dosUnitValueExtend);
-            emit move2NextPos;
-            //bottle_queue.pop();
-            System.out.println("[Coordinator] process finished, move to next position");
-
-            pause;
-        }
-    }   
 }
