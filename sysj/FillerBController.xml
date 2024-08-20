@@ -1,10 +1,10 @@
 <System xmlns="http://systemjtechnology.com">
     <SubSystem Name="FILLB" Local="true">
         <ClockDomain Name="FillerBControllerCD" Class="FillerBController">
-<!--            <iSignal Name="bottleAtPos2B"               Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40009" />-->
-<!--            <iSignal Name="dosUnitBEvac"                 Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40010" />-->
-<!--            <iSignal Name="dosUnitBAtTarget"             Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40011" />-->
-<!--            <iSignal Name="bottleAtPos2BFull"                  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40012" />-->
+            <iSignal Name="bottleAtPos2B"                Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40003" />
+            <iSignal Name="dosUnitBEvac"                 Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40003" />
+            <iSignal Name="dosUnitBAtTarget"             Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40003" />
+            <iSignal Name="bottleAtPos2BFull"            Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40003" />
 
 
             <oSignal Name="valveInjectorBOnOff"      To="FillerModel.valveInjectorBOnOff"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41006" />
@@ -13,10 +13,15 @@
             <oSignal Name="dosUnitBValveExtend"      To="FillerModel.dosUnitBValveExtend"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41009" />
 
 
-            <!--            signal for system coordinator  -->
-<!--            <iSignal Name="fillerBDoProcess"        Class="com.systemj.ipc.SimpleServer"    IP="127.0.0.1" Port="42001"/>-->
+            <oSignal Name="valveInjectorBOnOffE"      To="valveInjectorBOnOffE"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="valveInletBOnOffE"         To="valveInletBOnOffE"      Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="dosUnitBValveRetractE"     To="dosUnitBValveRetractE"  Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="dosUnitBValveExtendE"      To="dosUnitBValveExtendE"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
 
-            <oSignal Name="fillerBIdle"             To="Coordinator.fillerBIdle"          Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43001" />
+            <!--            signal for system coordinator  -->
+            <iSignal Name="fillerBDoProcess"        Class="com.systemj.ipc.SimpleServer"    IP="127.0.0.1" Port="40003"/>
+
+            <oSignal Name="fillerBIdle"             To="Coordinator.fillerBIdle"          Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43002" />
         </ClockDomain>
     </SubSystem>
 </System>

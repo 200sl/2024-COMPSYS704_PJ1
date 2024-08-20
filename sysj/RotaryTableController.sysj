@@ -42,4 +42,9 @@ RotaryTableController(
             pause;
         }
     }
+    ||
+    {
+        //UI
+        {while(true){present(rotaryTableTrigger){emit rotaryTableTriggerE;} pause;}}
+    }
 }

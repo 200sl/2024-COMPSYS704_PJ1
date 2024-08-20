@@ -96,4 +96,15 @@ FillerCController(
             pause;
         }
     }
+    ||
+    {
+        //UI
+        {while(true){present(valveInjectorCOnOff){emit valveInjectorCOnOffE;} pause;}}
+        ||
+        {while(true){present(valveInletCOnOffE){emit valveInletCOnOffE;} pause;}}
+        ||
+        {while(true){present(dosUnitCValveRetract){emit dosUnitCValveRetractE;} pause;}}
+        ||
+        {while(true){present(dosUnitCValveExtendE){emit dosUnitCValveExtendE;} pause;}}
+    }
 }
