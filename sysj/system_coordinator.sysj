@@ -57,7 +57,9 @@ Coordinator(
         loop
         {
             //pos 1
-            await (bottleAtPos1);
+            //await (bottleAtPos1);
+            pause;
+            pause;
             emit move2NextPos;
 
             //BottleQueue.moveToNext();
@@ -70,7 +72,9 @@ Coordinator(
         loop
         {
             //pos 2
-            await (bottleAtPos2A);
+            //await (bottleAtPos2A);
+            pause;
+            pause;
             emit fillerADoProcess;
 
             await (fillerAIdle);
@@ -87,7 +91,9 @@ Coordinator(
         loop
         {
             //pos 2
-            await (bottleAtPos2B);
+            //await (bottleAtPos2B);
+            pause;
+            pause;
             emit fillerCDoProcess;
 
             await (fillerBIdle);
@@ -104,7 +110,9 @@ Coordinator(
         loop
         {
             //pos 2
-            await (bottleAtPos2C);
+            //await (bottleAtPos2C);
+            pause;
+            pause;
             emit fillerCDoProcess;
 
             await (fillerCIdle);
@@ -121,7 +129,9 @@ Coordinator(
         loop
         {
             //pos 2
-            await (bottleAtPos2D);
+            //await (bottleAtPos2D);
+            pause;
+            pause;
             emit fillerDDoProcess;
 
             await (fillerDIdle);
@@ -137,7 +147,9 @@ Coordinator(
         //lip loader
         loop
         {
-            await (bottleAtPos3);
+            //await (bottleAtPos3);
+            pause;
+            pause;
             emit lipLoaderEnable;
 
             await (WPgripped);
@@ -155,7 +167,9 @@ Coordinator(
         //capper
         loop
         {
-            await (bottleAtPos4);
+            //await (bottleAtPos4);
+            pause;
+            pause;
             emit capperDoProcess;
 
             await (capperIdle);
@@ -171,8 +185,12 @@ Coordinator(
         //conveyor
         loop
         {
-            await (bottleAtPos5);
-            await (bottleLeftPos5);
+            //await (bottleAtPos5);
+            //await (bottleLeftPos5);
+            pause;
+            pause;
+            pause;
+            pause;
             await (rotaryIdle);
 
             emit move2NextPos;
