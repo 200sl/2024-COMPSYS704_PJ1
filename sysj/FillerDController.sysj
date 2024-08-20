@@ -1,6 +1,7 @@
 FillerDController(
 		input signal bottleAtPos2D, bottleAtPos2DFull, dosUnitDEvac, dosUnitDAtTarget, fillerDDoProcess;
 		output signal valveInjectorDOnOff, valveInletDOnOff, dosUnitDValveRetract, dosUnitDValveExtend, fillerDIdle;
+		output signal valveInjectorDOnOffE, valveInletDOnOffE, dosUnitDValveRetractE, dosUnitDValveExtendE;
 		)
 ->{
     signal openInjector, closeInjector;

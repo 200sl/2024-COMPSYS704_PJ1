@@ -1,6 +1,7 @@
 FillerCController(
 		input signal bottleAtPos2C, bottleAtPos2CFull, dosUnitCEvac, dosUnitCAtTarget, fillerCDoProcess;
 		output signal valveInjectorCOnOff, valveInletCOnOff, dosUnitCValveRetract, dosUnitCValveExtend, fillerCIdle;
+		output signal valveInjectorCOnOffE, valveInletCOnOffE, dosUnitCValveRetractE, dosUnitCValveExtendE;
 		)
 ->{
     signal openInjector, closeInjector;

@@ -1,6 +1,7 @@
 FillerBController(
 		input signal bottleAtPos2B, bottleAtPos2BFull, dosUnitBEvac, dosUnitBAtTarget, fillerBDoProcess;
 		output signal valveInjectorBOnOff, valveInletBOnOff, dosUnitBValveRetract, dosUnitBValveExtend, fillerBIdle;
+		output signal valveInjectorBOnOffE, valveInletBOnOffE, dosUnitBValveRetractE, dosUnitBValveExtendE;
 		)
 ->{
     signal openInjector, closeInjector;
