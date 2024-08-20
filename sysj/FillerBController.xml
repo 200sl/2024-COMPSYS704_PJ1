@@ -13,6 +13,11 @@
             <oSignal Name="dosUnitBValveExtend"      To="FillerModel.dosUnitBValveExtend"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41009" />
 
 
+            <oSignal Name="valveInjectorBOnOffE"      To="valveInjectorBOnOffE"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="valveInletBOnOffE"         To="valveInletBOnOffE"      Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="dosUnitBValveRetractE"     To="dosUnitBValveRetractE"  Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="dosUnitBValveExtendE"      To="dosUnitBValveExtendE"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+
             <!--            signal for system coordinator  -->
             <iSignal Name="fillerBDoProcess"        Class="com.systemj.ipc.SimpleServer"    IP="127.0.0.1" Port="40003"/>
 

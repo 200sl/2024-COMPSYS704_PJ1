@@ -19,6 +19,12 @@
 
             <oSignal Name="capperIdle" To="Coordinator.capperIdle" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43005"/>
 
+            <oSignal Name="cylPos5ZaxisExtendE" To="cylPos5ZaxisExtendE" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="gripperTurnRetractE" To="gripperTurnRetractE" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="gripperTurnExtendE" To="gripperTurnExtendE" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="capGripperPos5ExtendE" To="capGripperPos5ExtendE" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="cylClampBottleExtendE" To="cylClampBottleExtendE" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+
         </ClockDomain>
     </SubSystem>
 </System>
