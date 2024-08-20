@@ -1,10 +1,10 @@
 <System xmlns="http://systemjtechnology.com">
     <SubSystem Name="FILLB" Local="true">
         <ClockDomain Name="FillerBControllerCD" Class="FillerBController">
-<!--            <iSignal Name="bottleAtPos2B"               Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40009" />-->
-<!--            <iSignal Name="dosUnitBEvac"                 Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40010" />-->
-<!--            <iSignal Name="dosUnitBAtTarget"             Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40011" />-->
-<!--            <iSignal Name="bottleAtPos2BFull"                  Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40012" />-->
+            <iSignal Name="bottleAtPos2B"                Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40003" />
+            <iSignal Name="dosUnitBEvac"                 Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40003" />
+            <iSignal Name="dosUnitBAtTarget"             Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40003" />
+            <iSignal Name="bottleAtPos2BFull"            Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40003" />
 
 
             <oSignal Name="valveInjectorBOnOff"      To="FillerModel.valveInjectorBOnOff"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41006" />
@@ -14,9 +14,9 @@
 
 
             <!--            signal for system coordinator  -->
-<!--            <iSignal Name="fillerBDoProcess"        Class="com.systemj.ipc.SimpleServer"    IP="127.0.0.1" Port="42001"/>-->
+            <iSignal Name="fillerBDoProcess"        Class="com.systemj.ipc.SimpleServer"    IP="127.0.0.1" Port="40003"/>
 
-            <oSignal Name="fillerBIdle"             To="Coordinator.fillerBIdle"          Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43001" />
+            <oSignal Name="fillerBIdle"             To="Coordinator.fillerBIdle"          Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="43002" />
         </ClockDomain>
     </SubSystem>
 </System>
