@@ -1,6 +1,7 @@
 CapperController(
 		input signal bottleAtPos4, gripperZAxisLowered, gripperZAxisLifted, gripperTurnHomePos, gripperTurnFinalPos, capperDoProcess;
 		output signal cylPos5ZaxisExtend, gripperTurnRetract, gripperTurnExtend, capGripperPos5Extend, cylClampBottleExtend, capperIdle;
+		output signal cylPos5ZaxisExtendE, gripperTurnRetractE, gripperTurnExtendE, capGripperPos5ExtendE, cylClampBottleExtendE;
 		)
 ->{
     signal clampBottle, unclampBottle;
@@ -105,5 +106,18 @@ CapperController(
             System.out.println("");
             pause;
         }
+    }
+    ||
+    {
+        //UI
+		{while(true){present(cylPos5ZaxisExtend){emit cylPos5ZaxisExtendE;} pause;}}
+        ||
+		{while(true){present(gripperTurnRetract){emit gripperTurnRetractE;} pause;}}
+        ||
+		{while(true){present(gripperTurnExtend){emit gripperTurnExtendE;} pause;}}
+        ||
+		{while(true){present(capGripperPos5Extend){emit capGripperPos5ExtendE;} pause;}}
+        ||
+		{while(true){present(cylClampBottleExtend){emit cylClampBottleExtendE;} pause;}}
     }
 }

@@ -7,6 +7,8 @@
 
             <oSignal Name="rotaryTableTrigger" To="RotaryTableModel.rotaryTableTrigger" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41001" />
 
+            <oSignal Name="rotaryTableTriggerE" To="rotaryTableTriggerE" Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+
 
             <!--            signal for system coordinator  -->
             <iSignal Name="move2NextPos"            Class="com.systemj.ipc.SimpleServer" IP="127.0.0.1" Port="40001" />

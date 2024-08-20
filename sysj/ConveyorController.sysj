@@ -26,4 +26,10 @@ ConveyorController(
             }
         }
     }
+    ||
+    {
+        //UI
+		{while(true){present(motConveyorOnOff){emit cylPos5ZaxisExtendE;} pause;}}
+    }
+}
 }

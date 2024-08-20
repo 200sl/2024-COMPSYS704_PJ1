@@ -12,6 +12,10 @@
             <oSignal Name="dosUnitCValveRetract"     To="FillerModel.dosUnitCValveRetract"  Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41012" />
             <oSignal Name="dosUnitCValveExtend"      To="FillerModel.dosUnitCValveExtend"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="41013" />
 
+            <oSignal Name="valveInjectorCOnOffE"      To="valveInjectorCOnOffE"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="valveInletCOnOffE"         To="valveInletCOnOffE"      Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="dosUnitCValveRetractE"     To="dosUnitCValveRetractE"  Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
+            <oSignal Name="dosUnitCValveExtendE"      To="dosUnitCValveExtendE"   Class="com.systemj.ipc.SimpleClient" IP="127.0.0.1" Port="50000" />
 
             <!--            signal for system coordinator  -->
             <iSignal Name="fillerCDoProcess"        Class="com.systemj.ipc.SimpleServer"    IP="127.0.0.1" Port="40004"/>
