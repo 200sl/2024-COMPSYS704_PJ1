@@ -6,7 +6,7 @@ RotaryTableController(
     signal turnOnRotary, turnOffRotary;
 
     loop {
-        abort (move2NextPos && !bottleAtPos5 && !capOnBottleAtPos1) { sustain rotaryIdle; }
+        abort (move2NextPos && !bottleAtPos5 && !capOnBottleAtPos1) { while(true){emit rotaryIdle; pause;}}
 
         emit turnOnRotary;
 
@@ -40,6 +40,7 @@ RotaryTableController(
             }
 
             pause;
+            waitl(1000ms);
         }
     }
 }
