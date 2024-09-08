@@ -1,0 +1,109 @@
+Coordinator(
+		input   signal bottleAtPos1C, rotaryIdleC, fillerAIdleC, fillerBIdleC, fillerCIdleC, fillerDIdleC, capperIdleC, bottleLeftPos5C;
+		output  signal move2NextPos, fillerADoProcess, fillerBDoProcess, fillerCDoProcess, fillerDDoProcess, capperDoProcess;
+)
+->{
+    {
+        loop {
+            await (bottleAtPos1C);
+            System.out.println("Got BottleAtPos1");
+
+            System.out.println("Rotary: Working");
+            await (rotaryIdleC);
+            abort (!rotaryIdleC) { sustain move2NextPos;}
+            await (rotaryIdleC);
+            System.out.println("Rotary: Done");
+
+            pause;
+
+            System.out.println("FA: Working");
+            await (fillerAIdleC);
+            abort (!fillerAIdleC) { sustain fillerADoProcess;}
+            await (fillerAIdleC);
+            System.out.println("FA: Done");
+
+            pause;
+
+            System.out.println("Rotary: Working");
+            await (rotaryIdleC);
+            abort (!rotaryIdleC) { sustain move2NextPos;}
+            await (rotaryIdleC);
+            System.out.println("Rotary: Done");
+
+            pause;
+
+            System.out.println("FB: Working");
+            await (fillerBIdleC);
+            abort (!fillerBIdleC) { sustain fillerBDoProcess;}
+            await (fillerBIdleC);
+            System.out.println("FB: Done");
+
+            pause;
+
+            System.out.println("Rotary: Working");
+            await (rotaryIdleC);
+            abort (!rotaryIdleC) { sustain move2NextPos;}
+            await (rotaryIdleC);
+            System.out.println("Rotary: Done");
+
+            pause;
+
+            System.out.println("FC: Working");
+            await (fillerCIdleC);
+            abort (!fillerCIdleC) { sustain fillerCDoProcess;}
+            await (fillerCIdleC);
+            System.out.println("FC: Done");
+
+            pause;
+
+            System.out.println("Rotary: Working");
+            await (rotaryIdleC);
+            abort (!rotaryIdleC) { sustain move2NextPos;}
+            await (rotaryIdleC);
+            System.out.println("Rotary: Done");
+
+            pause;
+
+            System.out.println("FD: Working");
+            await (fillerDIdleC);
+            abort (!fillerDIdleC) { sustain fillerDDoProcess;}
+            await (fillerDIdleC);
+            System.out.println("FD: Done");
+
+            pause;
+
+            System.out.println("Rotary: Working");
+            await (rotaryIdleC);
+            abort (!rotaryIdleC) { sustain move2NextPos;}
+            await (rotaryIdleC);
+            System.out.println("Rotary: Done");
+
+            pause;
+
+            System.out.println("Capper: Working");
+            await (capperIdleC);
+            System.out.println("Capper: Working1");
+            abort (!capperIdleC) { sustain capperDoProcess;}
+            await (capperIdleC);
+            System.out.println("Capper: Done");
+
+            pause;
+
+            System.out.println("Rotary: Working");
+            await (rotaryIdleC);
+            abort (!rotaryIdleC) { sustain move2NextPos;}
+            await (rotaryIdleC);
+            System.out.println("Rotary: Done");
+
+            pause;
+
+            await(bottleLeftPos5C);
+
+            pause;
+
+            System.out.println("Finish One Bottle");
+
+            pause;
+        }
+    }
+}

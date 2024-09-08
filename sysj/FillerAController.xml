@@ -16,7 +16,8 @@
             <!--            signal for system coordinator  -->
             <iSignal Name="fillerADoProcess"        Class="com.systemj.ipc.InputJSON"    IP="127.0.0.1" Port="40002"/>
 
-            <oSignal Name="fillerAIdle"             To="Coordinator.fillerAIdle"          Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="41002" />
+            <oSignal Name="fillerAIdle"             To="CoordinatorCD.fillerAIdle"          Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="41002" />
+            <oSignal Name="fillerAIdleC"             To="CoordinatorCD.fillerAIdleC"          Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="50000" />
         </ClockDomain>
     </SubSystem>
 </System>

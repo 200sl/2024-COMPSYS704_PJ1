@@ -1,6 +1,6 @@
 FillerDController(
 		input signal bottleAtPos2D, bottleAtPos2DFull, dosUnitDEvac, dosUnitDAtTarget, fillerDDoProcess;
-		output signal valveInjectorDOnOff, valveInletDOnOff, dosUnitDValveRetract, dosUnitDValveExtend, fillerDIdle;
+		output signal valveInjectorDOnOff, valveInletDOnOff, dosUnitDValveRetract, dosUnitDValveExtend, fillerDIdle, fillerDIdleC;
 		)
 ->{
     signal openInjector, closeInjector;
@@ -8,7 +8,13 @@ FillerDController(
 
     {
         loop {
-            abort (bottleAtPos2D && fillerDDoProcess) { sustain fillerDIdle; }
+            abort (bottleAtPos2D && fillerDDoProcess) {
+                loop {
+                    emit fillerDIdle;
+                    emit fillerDIdleC;
+                    pause;
+                }
+            }
 
             emit openInjector;
 

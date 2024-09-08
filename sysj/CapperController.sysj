@@ -1,6 +1,6 @@
 CapperController(
 		input signal bottleAtPos4, gripperZAxisLowered, gripperZAxisLifted, gripperTurnHomePos, gripperTurnFinalPos, capperDoProcess;
-		output signal cylPos5ZaxisExtend, gripperTurnRetract, gripperTurnExtend, capGripperPos5Extend, cylClampBottleExtend, capperIdle;
+		output signal cylPos5ZaxisExtend, gripperTurnRetract, gripperTurnExtend, capGripperPos5Extend, cylClampBottleExtend, capperIdle, capperIdleC;
 		)
 ->{
     signal clampBottle, unclampBottle;
@@ -9,7 +9,13 @@ CapperController(
 
     {
         loop {
-            abort (bottleAtPos4 && capperDoProcess) { sustain capperIdle; }
+            abort (bottleAtPos4 && capperDoProcess) {
+                loop {
+                    emit capperIdle;
+                    emit capperIdleC;
+                    pause;
+                }
+            }
 
             emit clampBottle;
             emit lowerGripper;

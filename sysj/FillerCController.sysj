@@ -1,6 +1,6 @@
 FillerCController(
 		input signal bottleAtPos2C, bottleAtPos2CFull, dosUnitCEvac, dosUnitCAtTarget, fillerCDoProcess;
-		output signal valveInjectorCOnOff, valveInletCOnOff, dosUnitCValveRetract, dosUnitCValveExtend, fillerCIdle;
+		output signal valveInjectorCOnOff, valveInletCOnOff, dosUnitCValveRetract, dosUnitCValveExtend, fillerCIdle, fillerCIdleC;
 		)
 ->{
     signal openInjector, closeInjector;
@@ -8,7 +8,13 @@ FillerCController(
 
     {
         loop {
-            abort (bottleAtPos2C && fillerCDoProcess) { sustain fillerCIdle; }
+            abort (bottleAtPos2C && fillerCDoProcess) {
+                loop {
+                    emit fillerCIdle;
+                    emit fillerCIdleC;
+                    pause;
+                }
+            }
 
             emit openInjector;
 

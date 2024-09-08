@@ -1,0 +1,27 @@
+<System xmlns="http://systemjtechnology.com">
+    <SubSystem Name="SysC" Local="true">
+        <ClockDomain Name="CoordinatorCD" Class="Coordinator">
+
+            <iSignal Name="bottleAtPos1C"   Class="com.systemj.ipc.InputJSON" IP="127.0.0.1" Port="50000"/>
+            <iSignal Name="rotaryIdleC"     Class="com.systemj.ipc.InputJSON" IP="127.0.0.1" Port="50000"/>
+            <iSignal Name="fillerAIdleC"    Class="com.systemj.ipc.InputJSON" IP="127.0.0.1" Port="50000"/>
+            <iSignal Name="fillerBIdleC"    Class="com.systemj.ipc.InputJSON" IP="127.0.0.1" Port="50000"/>
+            <iSignal Name="fillerCIdleC"    Class="com.systemj.ipc.InputJSON" IP="127.0.0.1" Port="50000"/>
+            <iSignal Name="fillerDIdleC"    Class="com.systemj.ipc.InputJSON" IP="127.0.0.1" Port="50000"/>
+            <iSignal Name="capperIdleC"     Class="com.systemj.ipc.InputJSON" IP="127.0.0.1" Port="50000"/>
+            <iSignal Name="bottleLeftPos5C" Class="com.systemj.ipc.InputJSON" IP="127.0.0.1" Port="50000"/>
+
+
+
+            <!--            signal for system coordinator  -->
+
+            <oSignal Name="move2NextPos"        To="RotaryTableController.move2NextPos" Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="40001"/>
+            <oSignal Name="fillerADoProcess"    To="FillerAControllerCD.fillerADoProcess" Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="40002"/>
+            <oSignal Name="fillerBDoProcess"    To="FillerBControllerCD.fillerBDoProcess" Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="40003"/>
+            <oSignal Name="fillerCDoProcess"    To="FillerCControllerCD.fillerCDoProcess" Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="40004"/>
+            <oSignal Name="fillerDDoProcess"    To="FillerDControllerCD.fillerDDoProcess" Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="40005"/>
+            <oSignal Name="capperDoProcess"     To="CapperControllerCD.capperDoProcess"  Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="40006"/>
+
+        </ClockDomain>
+    </SubSystem>
+</System>

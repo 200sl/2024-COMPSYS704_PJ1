@@ -17,6 +17,7 @@
             <iSignal Name="fillerBDoProcess"        Class="com.systemj.ipc.InputJSON"    IP="127.0.0.1" Port="40003"/>
 
             <oSignal Name="fillerBIdle"             To="Coordinator.fillerBIdle"          Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="41003" />
+            <oSignal Name="fillerBIdleC"             To="CoordinatorCD.fillerBIdleC"          Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="50000" />
         </ClockDomain>
     </SubSystem>
 </System>

@@ -18,6 +18,7 @@
             <iSignal Name="capperDoProcess" Class="com.systemj.ipc.InputJSON" IP="127.0.0.1" Port="40006" />
 
             <oSignal Name="capperIdle" To="Coordinator.capperIdle" Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="41006"/>
+            <oSignal Name="capperIdleC" To="CoordinatorCD.capperIdleC" Class="com.systemj.ipc.OutputJSON" IP="127.0.0.1" Port="50000"/>
 
         </ClockDomain>
     </SubSystem>

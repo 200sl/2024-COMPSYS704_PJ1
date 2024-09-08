@@ -1,6 +1,6 @@
 FillerBController(
 		input signal bottleAtPos2B, bottleAtPos2BFull, dosUnitBEvac, dosUnitBAtTarget, fillerBDoProcess;
-		output signal valveInjectorBOnOff, valveInletBOnOff, dosUnitBValveRetract, dosUnitBValveExtend, fillerBIdle;
+		output signal valveInjectorBOnOff, valveInletBOnOff, dosUnitBValveRetract, dosUnitBValveExtend, fillerBIdle, fillerBIdleC;
 		)
 ->{
     signal openInjector, closeInjector;
@@ -8,7 +8,13 @@ FillerBController(
 
     {
         loop {
-            abort (bottleAtPos2B && fillerBDoProcess) { sustain fillerBIdle; }
+            abort (bottleAtPos2B && fillerBDoProcess) {
+                loop {
+                    emit fillerBIdleC;
+                    emit fillerBIdle;
+                    pause;
+                }
+            }
 
             emit openInjector;
 
